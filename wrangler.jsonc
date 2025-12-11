@@ -5,12 +5,11 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "agent-registration-uploads"
+    }
   ]
-  // R2バケット設定（デプロイ時に有効化）
-  // "r2_buckets": [
-  //   {
-  //     "binding": "R2",
-  //     "bucket_name": "agent-registration-uploads"
-  //   }
-  // ]
 }
