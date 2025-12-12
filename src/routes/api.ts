@@ -53,6 +53,20 @@ api.post('/upload', async (c) => {
  */
 api.post('/submit', async (c) => {
   try {
+    // 環境変数のチェック
+    if (!c.env.GOOGLE_CREDENTIALS) {
+      console.error('GOOGLE_CREDENTIALS is not set');
+      return c.json({ error: '環境変数が設定されていません (GOOGLE_CREDENTIALS)' }, 500);
+    }
+    if (!c.env.SPREADSHEET_ID) {
+      console.error('SPREADSHEET_ID is not set');
+      return c.json({ error: '環境変数が設定されていません (SPREADSHEET_ID)' }, 500);
+    }
+    if (!c.env.SHEET_NAME) {
+      console.error('SHEET_NAME is not set');
+      return c.json({ error: '環境変数が設定されていません (SHEET_NAME)' }, 500);
+    }
+
     const formData = await c.req.json();
 
     // 申請IDを生成
@@ -96,7 +110,11 @@ api.post('/submit', async (c) => {
     });
   } catch (error) {
     console.error('Submit error:', error);
-    return c.json({ error: '登録に失敗しました。もう一度お試しください。' }, 500);
+    const errorMessage = error instanceof Error ? error.message : '不明なエラー';
+    return c.json({ 
+      error: '登録に失敗しました。もう一度お試しください。',
+      detail: errorMessage 
+    }, 500);
   }
 });
 

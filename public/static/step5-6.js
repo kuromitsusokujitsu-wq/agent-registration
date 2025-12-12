@@ -167,8 +167,6 @@ function Step6({ formData }) {
 
     React.createElement('div', { className: 'space-y-4' },
       React.createElement('p', { className: 'text-gray-600' }, 
-        '登録内容の確認メールを送信しました。',
-        React.createElement('br'),
         '審査完了後、担当者よりご連絡させていただきます。'
       ),
       React.createElement('button', {
