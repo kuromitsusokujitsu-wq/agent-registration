@@ -11,9 +11,8 @@
   - 電子署名機能
 
 ## URL
-- **開発環境**: https://3000-iuvpa3q2bilmjzbfkbw19-0e616f0a.sandbox.novita.ai
-- **本番環境**: （デプロイ後に更新）
-- **GitHub**: （リポジトリ作成後に更新）
+- **本番環境**: https://agent-registration.pages.dev
+- **GitHub**: https://github.com/kuromitsusokujitsu-wq/agent-registration
 
 ## 完了した機能
 - ✅ ステップ1: 法人/個人の選択
@@ -26,10 +25,8 @@
 - ✅ 申請ID自動生成（AGT + 8桁）
 
 ## 未実装の機能
-- ⏳ Cloudflare R2バケットの本番環境設定
-- ⏳ ファイルアップロード機能の完全動作確認（R2連携）
-- ⏳ 登録完了メールの自動送信
-- ⏳ 本番環境へのデプロイ
+- 📧 登録完了メールの自動送信（オプション）
+  - Resend、SendGrid、Mailgunなどのサービス連携が可能
 
 ## 推奨される次のステップ
 1. **Cloudflare APIトークンの設定**
@@ -119,7 +116,8 @@ pm2 delete agent-registration
 
 ## デプロイ情報
 - **プラットフォーム**: Cloudflare Pages
-- **ステータス**: ⏳ 未デプロイ
+- **ステータス**: ✅ デプロイ完了
+- **本番URL**: https://agent-registration.pages.dev
 - **最終更新日**: 2025-12-11
 
 ## セキュリティ
