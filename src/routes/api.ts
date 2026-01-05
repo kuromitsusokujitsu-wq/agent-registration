@@ -33,8 +33,8 @@ api.post('/upload', async (c) => {
       },
     });
 
-    // 公開URLを生成（実際のR2バケットのURLに置き換える必要があります）
-    const fileUrl = `https://agent-registration-uploads.r2.cloudflarestorage.com/${key}`;
+    // 公開URLを生成（自分のドメインのAPIエンドポイント経由）
+    const fileUrl = `/api/files/${key}`;
 
     return c.json({
       success: true,
@@ -115,6 +115,40 @@ api.post('/submit', async (c) => {
       error: '登録に失敗しました。もう一度お試しください。',
       detail: errorMessage 
     }, 500);
+  }
+});
+
+/**
+ * ファイル取得 API
+ * GET /api/files/:key
+ */
+api.get('/files/*', async (c) => {
+  try {
+    // URLからキーを取得（/api/files/ を除去）
+    const key = c.req.path.replace('/api/files/', '');
+
+    if (!key) {
+      return c.json({ error: 'ファイルキーが指定されていません' }, 400);
+    }
+
+    // R2からファイルを取得
+    const object = await c.env.R2.get(key);
+
+    if (!object) {
+      return c.json({ error: 'ファイルが見つかりません' }, 404);
+    }
+
+    // ファイルをレスポンスとして返す
+    return new Response(object.body, {
+      headers: {
+        'Content-Type': object.httpMetadata?.contentType || 'application/octet-stream',
+        'Cache-Control': 'public, max-age=31536000',
+        'Content-Disposition': `inline`,
+      },
+    });
+  } catch (error) {
+    console.error('File retrieval error:', error);
+    return c.json({ error: 'ファイルの取得に失敗しました' }, 500);
   }
 });
 
