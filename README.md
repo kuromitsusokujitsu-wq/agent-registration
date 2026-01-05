@@ -23,6 +23,8 @@
 - ✅ ステップ6: 登録完了画面
 - ✅ Google Sheets自動書き込み
 - ✅ 申請ID自動生成（AGT + 8桁）
+- ✅ R2ファイルアップロード機能
+- ✅ API経由でアップロードファイルを配信（`/api/files/*` エンドポイント）
 
 ## 未実装の機能
 - 📧 登録完了メールの自動送信（オプション）
@@ -78,6 +80,9 @@
   - スプレッドシートID: `1LHZSZH1P83XNJBolqj1-g9YXIuiJNY6z8Rc1ugaNchc`
   - シート名: `紹介代理店登録`
 - **Cloudflare R2**: 本人確認書類の保存（本番環境で有効化）
+  - バケット名: `agent-registration-uploads`
+  - ファイル配信: `/api/files/*` エンドポイント経由でアクセス可能
+  - 例: `/api/files/uploads/1234567890-document.pdf`
 
 ## 使い方
 1. **フォームへアクセス**: ブラウザで開発URLにアクセス
@@ -118,7 +123,14 @@ pm2 delete agent-registration
 - **プラットフォーム**: Cloudflare Pages
 - **ステータス**: ✅ デプロイ完了
 - **本番URL**: https://agent-registration.pages.dev
+- **最新デプロイURL**: https://5d13a4a7.agent-registration.pages.dev
 - **最終更新日**: 2025-12-11
+
+## API エンドポイント
+- `POST /api/upload` - ファイルアップロード
+- `POST /api/submit` - フォーム送信
+- `GET /api/files/*` - アップロードファイルの取得
+- `GET /api/health` - ヘルスチェック
 
 ## セキュリティ
 - Google認証情報は環境変数で管理（`.dev.vars`はGitに含まれません）
